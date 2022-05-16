@@ -1,4 +1,4 @@
-import React, { useState } from react
+import React, { useState } from 'react'
 import Swal from "sweetalert2"
 
 const AddTask = ({onSave}) => {
@@ -12,13 +12,13 @@ const AddTask = ({onSave}) => {
                 title: "Oops...",
                 text: "Fill in your tas and date or close the form"
             })
-        } else if(!text && date) {
+        } else if(!text && day) {
             Swal.fire({
                 icon: 'error',
                 title: "Oops...",
                 text: "Fill in your task"
             })
-        }else if(text && !date) {
+        }else if(text && !day) {
             Swal.fire({
                 icon: 'error',
                 title: "Oops...",
