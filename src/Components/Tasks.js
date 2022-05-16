@@ -1,68 +1,16 @@
-import React, { useState } from react
-import Swal from "sweetalert2"
+import Task from './Task'
+import '../index.css'
 
-const AddTask = ({onSave}) => {
-    const [text, setText] = useState('')
-    const [day, setDay] = useState('')
-    const onSubmit = (e) => {
-        e.preventDefault()
-        if(!text && !day) {
-            Swal.fire({
-                icon: 'error',
-                title: "Oops...",
-                text: "Fill in your tas and date or close the form"
-            })
-        } else if(!text && date) {
-            Swal.fire({
-                icon: 'error',
-                title: "Oops...",
-                text: "Fill in your task"
-            })
-        }else if(text && !date) {
-            Swal.fire({
-                icon: 'error',
-                title: "Oops...",
-                text: "Fill in your date"
-            })
-        } else {
-            onSave(text, day)
+const Tasks = ({ tasks, onDelete, onEdit}) => {
+    return(
+        <>
+        {
+           tasks.map((task) => {
+               <Task key={task.id} task={task} onDelete={onDelete} onEdit={onEdit} />
+           })
         }
-        setText('')
-        setDay('')
-    }
-
-return (
-    <form className="add-form" onSubmit={onSubmit}>
-        <div className="form-control">
-            <label>Task</label>
-            <input
-            type= "text"
-            placeholder="add task"
-            value={text}
-            onChange= {(e) => setText(e.target.value)}
-            />
-        </div>
-        <div className="form-conrtrol">
-            <label>Day & Time</label>
-            <input
-            type = "text"
-            placeholder="add day and time"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            />
-        </div>
-        <input
-        type="submit"
-        className="btn btn-block"
-        value="Save Task"
-        />
-    </form>
-)
-
-
+        </>
+    )
 }
 
-export default AddTask
-
-
-  
+export default Tasks
