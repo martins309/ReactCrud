@@ -17,6 +17,15 @@ function App() {
     }, 3500)
   }, [])
 
+  const getTasks = JSON.parse(localStorage.getItem("taskAdded"))
+  useEffect(() => {
+    if(getTasks == null) {
+      setTasks([])
+    }else {
+      setTasks(getTasks)
+    }
+  })
+
   const addTask = (task) => {
     const id = uuidv4()
     const newTask = { id, ...task}
@@ -26,6 +35,7 @@ function App() {
       title: 'Hell Yeah',
       text: 'You have successfully added a new task!'
     })
+    localStorage.setItem("taskAdded", JSON.stringify([...tasks, newTask]))
   } 
 
   const delteTask = (id) => {
@@ -36,9 +46,32 @@ function App() {
       title: 'Oops...',
       text: 'You have successfully delted a task'
     })
+    localStorage.setItem("taskAdded", JSON.stringify(delteTask))
   }
 
-
+  const editTask = (id) => {
+    const text = prompt("Task Name")
+    const day = prompt("Day and Time")
+    let data = JSON.parse(localStorage.getItem('TaskAdded'))
+    const myData = data.map(x => {
+      if (x.id === id) {
+        return {
+          ...x,
+          text: text,
+          day: day,
+          id: uuidv4()
+        }
+      }
+      return x
+    })
+    Swal.fire({
+      icon: 'success',
+      title: 'Hell yeah...',
+      text: "you have usccessfully edited an existing task!"
+    })
+    localStorage.setItem("taskAdded", JSON.stringify(myData))
+    window.location.reload()
+  }
 
 
 
@@ -74,7 +107,7 @@ function App() {
               <h3>Number of Tasks: {tasks.length}</h3>
               
               {/* Displaying of Tasks */}
-              
+              {
                 tasks.length > 0 ?
                   (<Tasks tasks={tasks} onDelete={deleteTask} onEdit={editTask} />) :
                   ('No Task Found!')
