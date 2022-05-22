@@ -1,6 +1,6 @@
-import Header from './Components/Header'
-import Tasks from './Components/Tasks'
-import AddTask from './Components/AddTask';
+import Header from './components/Header'
+import Tasks from './components/Tasks'
+import AddTask from './components/AddTask';
 import React, { useState, useEffect} from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import Swal from 'sweetalert2'
@@ -18,13 +18,14 @@ function App() {
   }, [])
 
   const getTasks = JSON.parse(localStorage.getItem("taskAdded"))
+  
   useEffect(() => {
     if(getTasks == null) {
       setTasks([])
     }else {
       setTasks(getTasks)
     }
-  })
+  }, [])
 
   const addTask = (task) => {
     const id = uuidv4()
@@ -38,7 +39,7 @@ function App() {
     localStorage.setItem("taskAdded", JSON.stringify([...tasks, newTask]))
   } 
 
-  const delteTask = (id) => {
+  const deleteTask = (id) => {
     const delteTask = tasks.filter((task) => task.id !== id)
     setTasks(delteTask)
     Swal.fire ({
@@ -53,6 +54,7 @@ function App() {
     const text = prompt("Task Name")
     const day = prompt("Day and Time")
     let data = JSON.parse(localStorage.getItem('TaskAdded'))
+    
     const myData = data.map(x => {
       if (x.id === id) {
         return {
