@@ -53,7 +53,7 @@ function App() {
   const editTask = (id) => {
     const text = prompt("Task Name")
     const day = prompt("Day and Time")
-    let data = JSON.parse(localStorage.getItem('TaskAdded'))
+    let data = JSON.parse(localStorage.getItem('taskAdded'))
     
     const myData = data.map(x => {
       if (x.id === id) {

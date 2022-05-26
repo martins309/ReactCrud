@@ -10,7 +10,7 @@ const AddTask = ({ onSave }) => {
             Swal.fire({
                 icon: 'error',
                 title: "Oops...",
-                text: "Fill in your tas and date or close the form"
+                text: "Fill in your task and date or close the form"
             })
         } else if(!text && day) {
             Swal.fire({
@@ -47,8 +47,8 @@ return (
             <input
             type = "text"
             placeholder="add day and time"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={day}
+            onChange={(e) => setDay(e.target.value)}
             />
         </div>
         <input
